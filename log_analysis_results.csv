@@ -11,4 +11,4 @@ Endpoint,Access Count
 /login,13
 
 Suspicious Activity
-IP Address,Failed Login Count
+IP Address,Failed Login Attempts
