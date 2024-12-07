@@ -1,66 +1,85 @@
-## Assignment: Log Analysis Script
+# Log Analysis Script
 
-### **Objective**
+## Overview
 
-The goal of this assignment is to assess your ability to write a Python script that processes log files to extract and analyze key information. This assignment evaluates your proficiency in **file handling**, **string manipulation**, and **data analysis**, which are essential skills for cybersecurity-related programming tasks.
+This project is a Python script that processes web server log files to extract and analyze important information. The script performs various operations such as identifying the most active IP addresses, finding the most frequently accessed endpoint, and detecting suspicious activity such as failed login attempts. It is particularly useful for security monitoring and traffic analysis.
 
 ---
 
-### **Core Requirements**
+## Features
 
-Your Python script should implement the following functionalities:
+1. **Requests per IP**:
+   - Extracts IP addresses from the log file.
+   - Counts the number of requests made by each IP address.
+   - Sorts and displays results in descending order of request count.
 
-1. **Count Requests per IP Address**:
-    - Parse the provided log file to extract all IP addresses.
-    - Calculate the number of requests made by each IP address.
-    - Sort and display the results in descending order of request counts.
-    - Example output:
+   **Example Output**:
 
-IP Address           Request Count
-192.168.1.1          234
-203.0.113.5          187
-10.0.0.2             92
+2. **Most Accessed Endpoint**:
+- Extracts endpoints (URLs or resource paths) from the log file.
+- Identifies the endpoint accessed the highest number of times.
 
-2. **Identify the Most Frequently Accessed Endpoint**:
-    - Extract the endpoints (e.g., URLs or resource paths) from the log file.
-    - Identify the endpoint accessed the highest number of times.
-    - Provide the endpoint name and its access count.
-    - Example output:
+**Example Output**:
 
-Most Frequently Accessed Endpoint:
-/home (Accessed 403 times)
+3. **Suspicious Activity Detection**:
+- Detects failed login attempts based on HTTP status code `401` or specific failure messages (e.g., "Invalid credentials").
+- Flags IP addresses with failed login attempts exceeding a configurable threshold (default: 10).
 
-3. **Detect Suspicious Activity**:
-    - Identify potential brute force login attempts by:
-        - Searching for log entries with failed login attempts (e.g., HTTP status code `401` or a specific failure message like "Invalid credentials").
-        - Flagging IP addresses with failed login attempts exceeding a configurable threshold (default: 10 attempts).
-    - Display the flagged IP addresses and their failed login counts.
-    - Example output:
-
-Suspicious Activity Detected:
-IP Address           Failed Login Attempts
-192.168.1.100        56
-203.0.113.34         12
+**Example Output**:
 
 4. **Output Results**:
-    - Display the results in a clear, organized format in the terminal.
-    - Save the results to a CSV file named `log_analysis_results.csv` with the following structure:
-        - **Requests per IP**: Columns: `IP Address`, `Request Count`
-        - **Most Accessed Endpoint**: Columns: `Endpoint`, `Access Count`
-        - **Suspicious Activity**: Columns: `IP Address`, `Failed Login Count`
+- Displays all results in the terminal for quick review.
+- Saves results to a CSV file (`log_analysis_results.csv`) with the following sections:
+  - **Requests per IP**: Columns: `IP Address`, `Request Count`
+  - **Most Accessed Endpoint**: Columns: `Endpoint`, `Access Count`
+  - **Suspicious Activity**: Columns: `IP Address`, `Failed Login Count`
 
+---
 
+## Prerequisites
 
-### **Evaluation Criteria**
+To run this script, you need the following:
+- Python 3.7 or later installed on your system.
+- A log file in the expected format, placed in the same directory as the script (e.g., `sample.log`).
 
-1. **Functionality**
-    - The script processes the provided log file correctly and fulfills all requirements.
-    - All sections of the analysis are implemented: IP request counts, most accessed endpoint, and suspicious activity detection.
-2. **Code Quality**
-    - Clear, well-organized, and modular code.
-    - Proper use of comments, meaningful variable names, and adherence to Python best practices.
-3. **Performance**
-    - The script handles the provided log file efficiently and can scale to larger files without significant delays.
-4. **Output**
-    - Correctly formatted output in both the terminal and the saved CSV file.
-    - The CSV file structure matches the specified format.
+---
+
+## Log File Format
+
+The script expects the log entries to follow a format similar to this:
+
+Here are the key parts of the log:
+- `192.168.1.1`: IP address of the client.
+- `[03/Dec/2024:10:12:34 +0000]`: Date and time of the request.
+- `"GET /home HTTP/1.1"`: HTTP method, endpoint, and protocol.
+- `200`: HTTP status code (e.g., `200` for success, `401` for unauthorized).
+- `512`: Response size in bytes.
+
+---
+
+## Installation and Setup
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/your-username/log-analysis-script.git
+   cd log-analysis-script
+python log_analysis_script.py
+IP Address,Request Count
+192.168.1.1,234
+203.0.113.5,187
+Endpoint,Access Count
+/home,403
+IP Address,Failed Login Count
+192.168.1.100,56
+.
+├── log_analysis_script.py    # Main Python script
+├── sample.log                # Example log file
+├── log_analysis_results.csv  # Generated CSV file with results
+└── README.md                 # Project documentation
+FAILED_LOGIN_THRESHOLD = 10
+192.168.1.1 - - [03/Dec/2024:10:12:34 +0000] "GET /home HTTP/1.1" 200 512
+203.0.113.5 - - [03/Dec/2024:10:12:35 +0000] "POST /login HTTP/1.1" 401 128 "Invalid credentials"
+10.0.0.2 - - [03/Dec/2024:10:12:36 +0000] "GET /about HTTP/1.1" 200 256
+192.168.1.1 - - [03/Dec/2024:10:12:37 +0000] "GET /contact HTTP/1.1" 200 312
+
+This version is comprehensive, including usage instructions, examples, configuration details, and an example log format. Update placeholders like `Pradip19861` and `Pradip Dolai` before publishing.
